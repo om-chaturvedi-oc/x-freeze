@@ -1,18 +1,42 @@
-import platform
-
-if platform.system() == "Windows":
-        pathToHosts=r"C:\Windows\System32\drivers\etc\hosts"
-elif platform.system() == "Linux":
-        pathToHosts=r"/etc/hosts"
-
-redirect="127.0.0.1"
-websites=["https://www.sislovesme.com/","https://motherless.com/","https://xhamster.com/","https://www.xnxx.com/","https://www.xvideos.com/","https://www.pornhub.com/"]
-
-with open(pathToHosts,'r+') as file:
-    content=file.read()
-    for site in websites:
-        if site in content:
-            pass
-        else:
-            file.write(redirect+" "+site+"\n")
-            
+  
+import time
+from datetime import datetime as dt
+  
+# change hosts path according to your OS
+hosts_path = "/etc/hosts"
+# localhost's IP
+redirect = "127.0.0.1"
+  
+# websites That you want to block
+website_list = 
+["www.facebook.com","facebook.com",
+      "dub119.mail.live.com","www.dub119.mail.live.com",
+      "www.gmail.com","gmail.com"]
+  
+while True:
+  
+    # time of your work
+    if dt(dt.now().year, dt.now().month, dt.now().day,8) 
+    < dt.now() < dt(dt.now().year, dt.now().month, dt.now().day,16):
+        print("Working hours...")
+        with open(hosts_path, 'r+') as file:
+            content = file.read()
+            for website in website_list:
+                if website in content:
+                    pass
+                else:
+                    # mapping hostnames to your localhost IP address
+                    file.write(redirect + " " + website + "\n")
+    else:
+        with open(hosts_path, 'r+') as file:
+            content=file.readlines()
+            file.seek(0)
+            for line in content:
+                if not any(website in line for website in website_list):
+                    file.write(line)
+  
+            # removing hostnmes from host file
+            file.truncate()
+  
+        print("Fun hours...")
+    time.sleep(5)
